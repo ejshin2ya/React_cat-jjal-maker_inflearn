@@ -30,8 +30,7 @@
     <div id="app"></div>
     <!-- 
     
-   //리액트 스크립트를 가져와서 빠르게 react를 사용할 수 있다. 
-   // babel은 <li>와 같은 html의 문법을 react에서 사용할 수 있도록 도와주는 역할을 한다. 
+ 
 -->
     <script
       src="https://unpkg.com/react@17/umd/react.development.js"
@@ -45,9 +44,11 @@
     <script type="text/babel">
       console.log("야옹");
 
-      const title = <h1>1번째 고양이 가라사대</h1>;
+      const Title = (props) => {
+        return <h1>{props.children}</h1>;
+      };
 
-      const form = (
+      const Form = () => (
         <form>
           <input
             type="text"
@@ -58,37 +59,40 @@
         </form>
       );
 
-      const catItem = (
-        <li>
-          <img src="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
-        </li>
-      );
-      const favorites =
-        (
+      function CatItem(props) {
+        return (
+          <li>
+            <img src={props.img} />
+          </li>
+        );
+      }
+
+      function Favorites() {
+        //대문자로 시작
+        return (
           <ul class="favorites">
-            {catItem}
-            {catItem}
-            {catItem}
+            <CatItem img="https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn" />
+            <CatItem img="https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript" />
           </ul>
         );
+      }
 
-      const mainCard = (
-        <div class="main-card">
-          <img
-            src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
-            alt="고양이"
-            width="400"
-          />
-          <button>🤍</button>
-        </div>
-      );
-        //리액트에서는 최상위 태그가 하나만 가능하기 때문에 여러가지 변수를 넣고 싶을때는 <div>태그로 감싸줌으로써 해결해 준다. 
+      const MainCard = ({ img }) => {
+        return (
+          <div class="main-card">
+            <img src={img} alt="고양이" width="400" />
+            <button>🤍</button>
+          </div>
+        );
+      };
+
       const app = (
         <div>
-          {title}
-          {form}
-          {mainCard}
-          {favorites}
+          <Title>1번째 고양이 가라사대</Title>
+          <Title>2번째 고양이 가라사대</Title>
+          <Form />
+          <MainCard img="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
+          <Favorites />
         </div>
       );
       const 여기다가그려 = document.querySelector("#app");

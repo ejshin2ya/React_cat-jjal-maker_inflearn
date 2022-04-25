@@ -62,3 +62,112 @@
 
       ReactDOM.render(app, 여기다가그려);
 ```
+
+## 컴포넌트가 뭔가요?
+
+> 컴포넌트란?
+
+- 프로그래밍에 있어 재사용이 가능한 각각의 독립된 모듈
+- 컴포넌트 함수는 대문자로 시작한다.
+
+* app에서 컴포넌트를 사용할 때는 {}중괄호가 아닌 <> 이것을 사용해준다.
+
+```
+const app = (
+        <div>
+          <Title>1번째 고양이 가라사대</Title>
+          <Title>2번째 고양이 가라사대</Title>
+          {form}
+          <MainCard />
+          <Favorites />
+        </div>
+      );
+```
+
+- Title을 2번 사용하고 싶을 때 컴포넌트을 만들어서 사용할 수 있다.
+- 컴포넌트를 만들 때 값을 전달하고 싶을 때는 props를 사용
+
+> > 화살표 함수를 사용해서 컴포넌트를 생성한 경우.
+
+```
+      const Title = (props) => {
+        return <h1>{props.children}</h1>;
+      };
+```
+
+- app에서 Title을 태그로 사용하여 글씨를 작성한 경우
+  `<Title>1번째 고양이 가라사대</Title>`
+- props는 children으로 값을 받아오기 때문에 {props.children}으로 작성해준다.
+
+> > 일반 함수를 사용하여 컴포넌트를 생성한 경우.
+
+```
+      function CatItem(props) {
+        return (
+          <li>
+            <img src={props.img} />
+          </li>
+        );
+      }
+```
+
+- Favorites 함수가 CatItem을 컴포넌트로 사용하고 있다.
+- CatItem에 이미지 값을 전달하기 위해 props를 사용했다.
+- Favorites에서 CatItem을 컴포넌트로 사용할 때 `CatItem img=""` 형태로 작성해서 img값을 props로 넘기며, CatItem에서 값을 꺼내 쓸때는 props.img해서 사용한다.
+
+```
+      function Favorites() {
+        //대문자로 시작
+        return (
+          <ul class="favorites">
+            <CatItem img="https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn" />
+            <CatItem img="https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript" />
+          </ul>
+        );
+```
+
+- 컴포넌트 함수 작성시 retrun과 중괄호를 제거하고 작성도 가능하며 바로 리턴해주는 것과 같다.
+
+```
+const Form = () => (
+        <form>
+          <input
+            type="text"
+            name="name"
+            placeholder="영어 대사를 입력해주세요"
+          />
+          <button type="submit">생성</button>
+        </form>
+      );
+```
+
+> ES6 +디스트럭처링 문법 적용 전과 후
+
+- 문제 상황 : app에서 MainCard 컴포넌트를 사용하고 있고 재사용을 위해 img 주소 값을 props로 컴포넌트에 전달하여 사용하려고 한다.
+
+- 문법 적용 전
+
+```
+      const MainCard = (props) => {
+        return (
+          <div class="main-card">
+            <img src={props.img} alt="고양이" width="400" />
+            <button>🤍</button>
+          </div>
+        );
+      };
+```
+
+- 문법 적용 후
+- props를 중괄호를 사용해서 받아오면 img로 바로 사용이 가능하다.
+
+```
+      const MainCard = ({ img }) => {
+        return (
+          <div class="main-card">
+            <img src={img} alt="고양이" width="400" />
+            <button>🤍</button>
+          </div>
+        );
+      };
+```
