@@ -171,3 +171,25 @@ const Form = () => (
         );
       };
 ```
+
+## 12강. 스타일링
+
+> Html과 다른점
+
+- class가 아니라 className으로 작성
+- html에서 onclick 사용법
+  `onclick="sayHi()"`
+- react에서 onclick 사용법
+  `react : onClick={sayHi}`
+- jsx 문법에서는 onClick에서 c를 대문자사용하며, sayHi를 String 형태가 아닌 자바스크립트 그대로 넘겨야 한다.
+
+> inline-sytle 작성법
+
+- {{}} 중괄호를 두번 사용해서 한번 더 object를 만들어준다.
+- 원하는 태그에 style을 사용해서 key와 value값을 만드는데, value값은 String 형태로 만들어준다.
+  `<img src={props.img} style={{ width: "150px"}}/>`
+
+> 최근 react 개발시 많이 사용하는 style 방법
+
+- https://emotion.sh/docs/introduction 페이지에 나와있는 것처럼 styled 형태를 많이 사용한다고 한다.
+- 개발자마다 추구하는 방법이 다른데, class-name을 잘알고 있는 경우 사용하기 좋은 페이지 https://tailwindcss.com/

@@ -22,9 +22,6 @@
       flex-wrap: wrap;
       gap: 15px;
     }
-    .favorites img {
-      width: 150px;
-    }
   </style>
   <body>
     <div id="app"></div>
@@ -62,15 +59,14 @@
       function CatItem(props) {
         return (
           <li>
-            <img src={props.img} />
+            <img src={props.img} style={{ width: "150px" }} />
           </li>
         );
       }
 
       function Favorites() {
-        //대문자로 시작
         return (
-          <ul class="favorites">
+          <ul className="favorites">
             <CatItem img="https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn" />
             <CatItem img="https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript" />
           </ul>
@@ -79,7 +75,7 @@
 
       const MainCard = ({ img }) => {
         return (
-          <div class="main-card">
+          <div className="main-card">
             <img src={img} alt="고양이" width="400" />
             <button>🤍</button>
           </div>
@@ -89,7 +85,6 @@
       const app = (
         <div>
           <Title>1번째 고양이 가라사대</Title>
-          <Title>2번째 고양이 가라사대</Title>
           <Form />
           <MainCard img="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
           <Favorites />
