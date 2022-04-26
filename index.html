@@ -44,14 +44,19 @@
       const Title = (props) => {
         return <h1>{props.children}</h1>;
       };
-      //form에서 onSubmit으로 클릭시 이벤트 발생시키면 브라우저가 리프레쉬되는 기본동작으로 하고 있다.
-      //기본 동작을 막기위해 event.preventDefault()를 해줘야 한다.
-      //form의 submit의 첫번째로 인자로 event가 들어오고 event로 prevent를 하면 기본동작을 막을 수 있다.
+
       const Form = () => {
+        const [counter, setCounter] = React.useState(1);
+
+        console.log("카운터", counter);
+
         function handleFormSubmit(event) {
-          console.log("폼 전송됨");
           event.preventDefault();
+          console.log("폼 전송됨");
+
+          setCounter(counter + 1);
         }
+
         return (
           <form onSubmit={handleFormSubmit}>
             <input

@@ -251,3 +251,34 @@ const Form = () => (
         );
       };
 ```
+
+## 14. useState로 상태 만들기
+
+> useState() 사용방법
+
+- useState(초기값) 함수안에 초기값을 넣어준다.
+- useState()를 이용하면 상태값을 변수에 바로 담아서 사용할 수 있다.
+- counterState라는 변수에 useState를 이용해서 초기값을 1로 설정해주었다.
+  ` const counterState = React.useState(1);`
+- useState()는 첫번째 인자와 두번째 인자를 가지고 있다. 위에서 만들었던 counterState의 값은 1이면서, 두가지 인자값을 가지게 된다.
+- 첫번째 인자인 counter는 counterState 자체의 값을 가지고 있고, 두번째 인자인setCounter는 변경된 상태값을 가지게 된다.
+
+```const counter= counterState[0];
+    const setCounter = counterState[1];
+```
+
+> 자바스크립트 문법으로 useState 바꾸면
+
+- 위에서는 3줄을 사용했지만, 변수에 바로 counter와 setCounter를 담아서 사용하면 1줄로 사용할 수 있다.
+
+```const[ counter, setCounter] = React.useState(1);
+
+```
+
+- form 태그의 submit이 발생할때마다 변수의 값이 1이 증가하도록 만들어주었다.
+
+```setCounter(counter+1);
+
+```
+
+- 최종 코드
