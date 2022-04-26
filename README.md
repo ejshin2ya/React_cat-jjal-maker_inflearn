@@ -193,3 +193,61 @@ const Form = () => (
 
 - https://emotion.sh/docs/introduction 페이지에 나와있는 것처럼 styled 형태를 많이 사용한다고 한다.
 - 개발자마다 추구하는 방법이 다른데, class-name을 잘알고 있는 경우 사용하기 좋은 페이지 https://tailwindcss.com/
+
+## 13강. 이벤트 다루기
+
+> 이벤트 핸들러 사용하기
+
+- 이벤트 핸들러 이름은 handle ~ Click, handle ~ MouseOver 형태가 관례이며 카멜 케이스로 작성한다.(띄어쓰기를 대문자로 구분, 낙타 혹처럼 생겨서 카멜케이스라고함)
+- return 작성 전에 function으로 이벤트 핸들러를 만들어준다.
+- 하트 버튼 클릭시 이벤트 발생 : `onClick={handleHeartClick}`
+- 하트 위에 마우스 지나갈때 이벤트 발생 : `onMouseOver={handleHeartMouseOver}`
+
+```
+   const MainCard = ({ img }) => {
+        function handleHeartClick() {
+          console.log("하트 눌렀음");
+        }
+        function handleHeartMouseOver() {
+          console.log("하트 스쳐 지나감");
+        }
+        return (
+          <div className="main-card">
+            <img src={img} alt="고양이" width="400" />
+            <button
+              onClick={handleHeartClick}
+              onMouseOver={handleHeartMouseOver}
+            >
+              🤍
+            </button>
+          </div>
+        );
+      };
+```
+
+> From 태그에서 이벤트 발생시 처리방법
+
+- form에서는 onSubmit을 사용하여 이벤트 핸들러 사용
+  `onSubmit={handleFormSubmit}`
+- form에서 onSumit 이벤트 발생시에는 브라우저가 리프레쉬되는 기본동작이 발생한다.
+- 이러한 기본동작을 막기 위해서는 자바스크립트 문법인 event.preventDefault() 함수를 작성해줘야한다.
+- form 태그의 submit의 첫번째 인자로 event가 들어오고 evnet로 prevent하면 기본동작을 막을 수 있다.
+
+```
+ const Form = () => {
+        function handleFormSubmit(event) {
+          console.log("폼 전송됨");
+          event.preventDefault();
+        }
+        return (
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+            />
+            <button type="submit">생성</button>
+          </form>
+        );
+      };
+```
