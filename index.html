@@ -44,17 +44,25 @@
       const Title = (props) => {
         return <h1>{props.children}</h1>;
       };
-
-      const Form = () => (
-        <form>
-          <input
-            type="text"
-            name="name"
-            placeholder="영어 대사를 입력해주세요"
-          />
-          <button type="submit">생성</button>
-        </form>
-      );
+      //form에서 onSubmit으로 클릭시 이벤트 발생시키면 브라우저가 리프레쉬되는 기본동작으로 하고 있다.
+      //기본 동작을 막기위해 event.preventDefault()를 해줘야 한다.
+      //form의 submit의 첫번째로 인자로 event가 들어오고 event로 prevent를 하면 기본동작을 막을 수 있다.
+      const Form = () => {
+        function handleFormSubmit(event) {
+          console.log("폼 전송됨");
+          event.preventDefault();
+        }
+        return (
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+            />
+            <button type="submit">생성</button>
+          </form>
+        );
+      };
 
       function CatItem(props) {
         return (
@@ -74,10 +82,21 @@
       }
 
       const MainCard = ({ img }) => {
+        function handleHeartClick() {
+          console.log("하트 눌렀음");
+        }
+        function handleHeartMouseOver() {
+          console.log("하트 스쳐 지나감");
+        }
         return (
           <div className="main-card">
             <img src={img} alt="고양이" width="400" />
-            <button>🤍</button>
+            <button
+              onClick={handleHeartClick}
+              onMouseOver={handleHeartMouseOver}
+            >
+              🤍
+            </button>
           </div>
         );
       };
