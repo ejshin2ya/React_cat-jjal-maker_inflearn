@@ -282,3 +282,80 @@ const Form = () => (
 ```
 
 - 최종 코드
+
+```
+ const Form = () => {
+        const [counter, setCounter] = React.useState(1);
+
+        console.log("카운터", counter);
+
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          console.log("폼 전송됨");
+
+          setCounter(counter + 1);
+        }
+
+        return (
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+            />
+            <button type="submit">생성</button>
+          </form>
+        );
+      };
+```
+
+## 15강. 상태 끌어올리기
+
+> HandleFromSubmit 상태 끌어올리기(lifting state up)란?
+
+- 상태를 부모 컴포넌트에서 선언하도록 바꾸고, 부모에서 만들어진 상태를 자식 컴포넌트에 props로 넘겨준다.
+
+- 자식 컴포넌트인 Form에 있던 상태를 부모 컴포넌트 App에서 선언하도록 변경했다.
+- Form에서 handleFormSubmit 함수를 실행하기 위해서 props를 통해서 필요한 값을 받았다.
+
+```
+ const Form = ({ handleFormSubmit }) => {
+        return (
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+            />
+            <button type="submit">생성</button>
+          </form>
+        );
+      };
+```
+
+- 부모 컴포넌트(App)에서 자식 컴포넌트(Form)으로 handleFormSubmit을 props로 넘겨주었다.
+- App을 컴포넌트 화살표함수로 함들어준 후, 상태를 선언했다.
+
+```
+  const App = () => {
+        const [counter, setCounter] = React.useState(1);
+
+        console.log("카운터", counter);
+
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          console.log("폼 전송됨");
+
+          setCounter(counter + 1);
+        }
+
+        return (
+          <div>
+            <Title>{counter}번째 고양이 가라사대</Title>
+            <Form handleFormSubmit={handleFormSubmit} />
+            <MainCard img="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
+            <Favorites />
+          </div>
+        );
+      };
+```
