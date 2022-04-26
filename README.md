@@ -359,3 +359,27 @@ const Form = () => (
         );
       };
 ```
+
+## 16강. useState 퀴즈 풀이
+
+> 생성 버튼을 누르면 MainCard 고양이 사진을 CAT2로 변경
+
+1. useState 만들기
+
+- CAT1 사진을 기본값으로 가지고 있는 useState를 만든다.
+  `const [mainCat, setMainCat] = React.useState(CAT1);`
+
+2. MainCard 자식 컴포넌트에 props로 useState의 첫번째 인자값 mainCat을 입력해준다.
+   ` <MainCard img={mainCat} />`
+
+3. form 전송시 이벤트가 발생하는 handleFormSubmit에 변화된 두번째 인자값 setMainCat(CAT2)를 입력해준다.
+
+```
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          console.log("폼 전송됨");
+
+          setCounter(counter + 1);
+          setMainCat(CAT2);
+        }
+```
