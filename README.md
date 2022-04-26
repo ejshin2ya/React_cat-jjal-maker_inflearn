@@ -413,3 +413,74 @@ const Form = () => (
         );
       }
 ```
+
+## 18강. 배웠던 개념 조합해서 기능 추가(상태, props, 이벤트, 리스트)
+
+> 하트 버튼 누르면 고양이 사진이 추가되도록 구현해보기
+
+1. MainCard 컴포넌트 안에 들어있던 handleHeartClick() 함수를 부모 컴포넌트 App으로 끌어올리기
+
+2. handleHeartClick() 함수를 자식 컴포넌트 MainCard에 props로 전달한다.
+
+3. Favorites 컴포넌트를 동적으로 만들기 위해 useState() 변수에 담아낸다.
+
+4. useState()초기값에 CAT1, CAT2 배열을 넣고, 하트를 누르면 CAT3가 추가되도록 하기 위해서 setFavorites([...favorites, CAT3]) 형태로 작성해준다.
+   ...은 기존의 배열을 펼쳐주는 자바스크립트 문법을 사용한다.
+
+```
+ function Favorites({ favorites }) {
+        return (
+          <ul className="favorites">
+            {favorites.map((cat) => (
+              <CatItem img={cat} key={cat} />
+            ))}
+          </ul>
+        );
+      }
+
+      const MainCard = ({ img, handleHeartClick }) => {
+        return (
+          <div className="main-card">
+            <img src={img} alt="고양이" width="400" />
+            <button onClick={handleHeartClick}>🤍</button>
+          </div>
+        );
+      };
+
+      const App = () => {
+        const CAT1 =
+          "https://cataas.com/cat/60b73094e04e18001194a309/says/react";
+        const CAT2 =
+          "https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn";
+        const CAT3 =
+          "https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript";
+
+        const [counter, setCounter] = React.useState(1);
+        const [mainCat, setMainCat] = React.useState(CAT1);
+        const [favorites, setFavorites] = React.useState([CAT1, CAT2]);
+
+        console.log("카운터", counter);
+
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          console.log("폼 전송됨");
+
+          setCounter(counter + 1);
+          setMainCat(CAT2);
+        }
+
+        function handleHeartClick() {
+          console.log("하트 눌렀음");
+          setFavorites([...favorites, CAT3]);
+        }
+
+        return (
+          <div>
+            <Title>{counter}번째 고양이 가라사대</Title>
+            <Form handleFormSubmit={handleFormSubmit} />
+            <MainCard img={mainCat} handleHeartClick={handleHeartClick} />
+            <Favorites favorites={favorites} />
+          </div>
+        );
+      };
+```
