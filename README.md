@@ -383,3 +383,33 @@ const Form = () => (
           setMainCat(CAT2);
         }
 ```
+
+## 17강. 리스트
+
+> map 사용법
+
+- map은 리스트에 담긴 값들을 반복문으로 출력할 때 사용한다.
+- {배열.map((배열의 개별값을 담을 변수명) => (
+  값들을 출력하는 코드
+  ))}
+- CAT 사진 3개를 가져와서 cats 배열을 만든 후, map을 사용하여 CatItem에 이미지 주소를 props로 넘겨주었다.
+
+```
+ function Favorites() {
+        const CAT1 =
+          "https://cataas.com/cat/60b73094e04e18001194a309/says/react";
+        const CAT2 =
+          "https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn";
+        const CAT3 =
+          "https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript";
+
+        const cats = [CAT2, CAT3];
+        return (
+          <ul className="favorites">
+            {cats.map((cat) => (
+              <CatItem img={cat} key={cat} />
+            ))}
+          </ul>
+        );
+      }
+```
