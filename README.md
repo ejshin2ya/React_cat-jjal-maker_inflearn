@@ -617,3 +617,79 @@ const Form = () => (
         );
       };
 ```
+
+## 21. 코드 정리하기
+
+1. console.log() 지워주기(test용)
+2. 이벤트 핸들러 컨벤션(규칙)에 맞게 prop 이름 지어주기
+
+- handle이 들어간 함수를 prop으로 보낼때는 on이라는 접두어를 붙여서 이름을 지어준다.
+
+- handleHeartClick() 함수를 MainCard자식 컴포넌트에 prop으로 보내줄때,
+  handleHeartClick={handleHeartClick}이라고 적은 부분을
+  onHeartClick={handleHeartClick}으로 바꿔주었다.
+  ```
+  <MainCard img={mainCat} onHeartClick={handleHeartClick} />
+  ```
+
+3. handleFormSubmit() 함수를 App컴포넌트와 form 컴포넌트에서 중복해서 사용하고 있는 것을 합쳐준다.
+   form이 submit될 때 app컴포넌트에서는 고양이사진과 숫자를 바꿔주는 기능을 하고, form컴포넌트에서는 빈값이 입력되어 submit될때 에러메세지를 띄워주는 기능을 하고 있다. app컴포넌트에서의 handleFormSubmit()함수를 기능구현에 맞는 이름 updateMainCat()으로 바꿔주고, 이 함수를 prop으로 form컴포넌트로 넘겨준다. form 컴포넌트의 handleFormSubmit() 함수 내부에 updateMainCat()을 적어준다.
+
+- form 컴포넌트의 handleFormSubmit()함수
+
+```
+        function handleFormSubmit(e) {
+          e.preventDefault();
+          setErrorMessage("");
+          if (value === "") {
+            setErrorMessage("빈 값으로 만들 수 없습니다.");
+            return;
+          }
+          updateMainCat();
+        }
+```
+
+- app 컴포넌트의 updateMainCat()함수와 prop으로 넘겨주는 코드
+
+```
+        function updateMainCat() {
+          setMainCat(CAT2);
+          setCounter(counter + 1);
+        }
+
+        return (
+          <div>
+            <Title>{counter}번째 고양이 가라사대</Title>
+            <Form updateMainCat={updateMainCat} />
+            <MainCard img={mainCat} onHeartClick={handleHeartClick} />
+            <Favorites favorites={favorites} />
+          </div>
+        );
+```
+
+4. 함수실행시 동작 우선순위에 따라 위치 바꿔준다.
+
+- 고양이 사진 보여주는 것이 숫자 바꾸는 것보다 기능 구현에 있어 우선순위가 높다.
+
+```
+        function updateMainCat() {
+          setMainCat(CAT2);
+          setCounter(counter + 1);
+        }
+```
+
+5. return으로 함수가 추가 실행되지 않도록 막아주기
+
+- 빈값이 입력되었을 때, updateMainCat()이 실행되지 않도록 return을 적어준다.
+
+```
+        function handleFormSubmit(e) {
+          e.preventDefault();
+          setErrorMessage("");
+          if (value === "") {
+            setErrorMessage("빈 값으로 만들 수 없습니다.");
+            return;
+          }
+          updateMainCat();
+        }
+```
