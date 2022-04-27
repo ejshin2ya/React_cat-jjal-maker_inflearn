@@ -484,3 +484,45 @@ const Form = () => (
         );
       };
 ```
+
+## 19강. 폼 다루기
+
+> 사용자가 form input 창에 소문자 입력시 자동으로 대문자로 입력되도록 제어
+
+1. form 컴포넌트를 찾아서 동적인 상태로 만들어주는 useState() 변수를 만든다.
+
+2. useState()의 초기값은 빈 스트링으로 설정하고, 첫번째 인자값은 value, 두번째 인자값은 setValue라는 이름으로 만들어준다.
+
+3. form 태그 안에 onChange라는 내장함수를 이용해서 input창에 값이 입력되는 것을 인지하는 handleInputChange 이벤트 함수를 만들어준다.
+
+4. handleInputChange 이벤트를 console.log로 찍어보면 input 창에 입력한 값이 target.value안에 들어있는것을 확인할 수 있다.
+
+5. handleInputChange 이벤트 함수가 발생될때마다(사용자가 input창에 입력을 할때마다) 입력값을 대문자로 바꿔주는 함수 toUpperCase()와 setValue를 사용하여 소문자를 대문자로 동적으로 바꿔준다.
+
+6. 최종적으로 handleInputChange(e) 이벤트 함수에 setValue(e.target.value.toUpperCase());를 추가하여 동적으로 바꿔준다. 하지만 실제 input창에는 값이 변화하지 않고 내부적으로 변화한다.
+
+7. 이를 해결해주기 위해 form 태그 내장함수인 value에 우리가 만든 useState의 첫번째인자값인 value를 입력해준다. valus={value}
+
+8. 최종 코드
+
+```
+ const Form = ({ handleFormSubmit }) => {
+        const [value, setValue] = React.useState("");
+        function handleInputChange(e) {
+          console.log(e.target.value.toUpperCase());
+          setValue(e.target.value.toUpperCase());
+        }
+        return (
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+              value={value}
+              onChange={handleInputChange}
+            />
+            <button type="submit">생성</button>
+          </form>
+        );
+      };
+```
