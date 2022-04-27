@@ -848,3 +848,65 @@ function handleClick(event){
 
 <button onClick={handleClick}>제출</button>
 ```
+
+## 26. 지금까지 배운 개념 정리 2(상태, 리스트, 폼, 로컬스토리지)
+
+> 상태
+
+- 컴포넌트 안에서 자유롭게 변경할 값이 필요할 때
+
+- useState함수로 상태를 추가할 수 있다.
+- const[상태명, 상태변경함수명] = React.useState(초기값)
+- 컴포넌트 안에서 만들 수 있다.
+
+```
+const[counter, setCounter] = React.useState(1)
+
+function 카운터증가(){
+  setCounter(counter+1); //(참고)setCounter(prev=> prev+1)로도 가능!
+}
+return <button onClick={카운터증가}>카운터는 {counter}</button>
+```
+
+> 리스트
+
+- 배열로 반복되는 UI 그리기
+- 웹 사이트를 만들 때 정말 많이 쓴다.
+- 배열에서 map을 돌면서 리액트 UI를 반환한다.
+
+```
+const favorites =["이미지1", "이미지2", "이미지3"]
+<ul>
+  {favorites.map(image => <img src={image}></img>)}
+</ul>
+```
+
+> 폼
+
+- 사용자 입력 다루기
+- 사용자 입력값을 직접 다루기 위해 value를 상태로 관리한다.
+
+```
+const[value, setValue] = React.useState("초기값이에요")
+
+function onValueChange(e){
+  setValue(e.target.value);
+}
+
+<form onSubmit={handleSubmit}>
+  <input value={value} onChange={onValueChange}/>
+  <button type="submit">제출</button>
+</form>
+```
+
+> 로컬스토리지
+
+- 리액트 문법x, 브라우저 기능 o
+- 브라우저에 데이터 저장하기
+- 간단한 데이터 저장이 필요할 땐 localStorage를 쓰세요.
+- 일반 브라우저와 다르게 webkit관련 브라우저는 7일까지 저장가능(애플 사파리)
+
+```
+localStorage.setItem("이름", "유림");
+localStorage.getItem("이름") //유림
+```
