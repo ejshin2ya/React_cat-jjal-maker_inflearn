@@ -526,3 +526,94 @@ const Form = () => (
         );
       };
 ```
+
+## 20강. 폼 검증하기 (Form validation)
+
+> 영어대사가 아닌 한글입력시 한글은 입력할 수 없습니다라는 텍스트 보여주고, 빈값을 입력 후 생성버튼 입력시 빈값으로는 생성할 수 없습니다라는 에러메세지 띄워보기
+
+1. 값이 한글인지 아닌지 검증하는 함수 만들기
+
+`const includesHangul = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);`
+
+2. handleInputChange 함수가 실행될 때(input창에 사용자가 값을 입력할 때) 입력된 값(e.target.value)가 한글인지 아닌지를 확인하기 위해 includesHangul(e.target.value) 콘솔창에 찍어보면 한글이 입력되면 true, 영어가 입력되면 false가 나오는 것을 알 수 있다.
+
+3. 한글이 입력되면 true값이 나오는걸 이용해서 조건문과 setState()함수를 사용해서 동적으로 만들어준다. 초기값은 빈 스트링이고 첫번째 인자값은 errorMessage, 두번째 인자값은 setErrorMessage를 갖는 useState를 만들어준다.
+   `const [errorMessage, setErrorMessage] = React.useState("");`
+
+- 한글이 입력되면 한글은 입력할 수 없습니다라는 상태값을 setErrorMessage를 이용해서 동적으로 만들어준다.
+
+```
+ function handleInputChange(e) {
+          const userValue = e.target.value;
+
+          setErrorMessage("");
+
+          if (includesHangul(userValue)) {
+            setErrorMessage("한글은 입력할 수 없습니다.");
+          }
+          setValue(userValue.toUpperCase());
+        }
+```
+
+4. 위에서 만든 동적인 errorMessage 값을 화면에 보여주기 위해 form 태그 안에 p태그를 만들어서 에러 메세지를 보여준다.
+   `<p style={{ color: "red" }}>{errorMessage}</p>`
+
+5. 빈값이 입력되어 생성버튼을 눌렀을때 "빈값으로 만들 수 없습니다"라는 메세지를 보여주기 위해 기존에 만들었던 handleFormSubmit(e) 함수를 사용한다.
+   App 부모 컴포넌트에서 handleFormSubmit을 받아오던 prop은 지워주고, form 컴포넌트 안에 새로 handleFormSubmit 함수를 만들어준다.
+
+6. 조건문과 useSatate()함수를 이용하여 value값이 빈 문자열일때 setErrorMessage("빈 값으로 만들 수 없습니다.")라는 동적인 문구를 보여줍니다.
+
+7. 빈문자열이 아닐때 else를 사용하여 setErrorMessage를 빈문자열로 만들어줄 수도 있지만 애초에 setErrorMessage("")로 작성하면 else를 적을 필요가 없다.
+
+```
+        function handleFormSubmit(e) {
+          e.preventDefault();
+          setErrorMessage("");
+          if (value === "") {
+            setErrorMessage("빈 값으로 만들 수 없습니다.");
+          }
+        }
+```
+
+8. 최종 코드
+
+```
+      const Form = () => {
+        const [value, setValue] = React.useState("");
+        const includesHangul = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);
+        const [errorMessage, setErrorMessage] = React.useState("");
+
+        function handleInputChange(e) {
+          const userValue = e.target.value;
+
+          setErrorMessage("");
+
+          if (includesHangul(userValue)) {
+            setErrorMessage("한글은 입력할 수 없습니다.");
+          }
+          setValue(userValue.toUpperCase());
+        }
+
+        function handleFormSubmit(e) {
+          e.preventDefault();
+          setErrorMessage("");
+          if (value === "") {
+            setErrorMessage("빈 값으로 만들 수 없습니다.");
+          }
+        }
+
+        return (
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+              value={value}
+              onChange={handleInputChange}
+            />
+            <button type="submit">생성</button>
+            <p style={{ color: "red" }}>{errorMessage}</p>
+          </form>
+        );
+      };
+```
