@@ -693,3 +693,25 @@ const Form = () => (
           updateMainCat();
         }
 ```
+
+## 22. 로컬스토리지에 데이터 싱크하기
+
+> 영어대사를 입력 후 생성 버튼 클릭시 증가한 숫자를 저장하는 방법으로 localStorage를 사용
+
+1. 로컬스토리지에 데이터 저장하기
+
+- setItem 사용
+- counter라는 키값으로 nextCounter자리에 있는 값이 들어간다.
+
+```
+localStroage.setItem("counter", nextCounter);
+```
+
+2. 로컬스토리지의 데이터 가져오기
+
+- getItem 사용
+- 로컬스토리지에 있는 데이터는 String 타입으로 꺼내지기 때문에 int 타입이 필요할때는 Number를 이용하여 숫자로 변환
+
+```
+ Number(localStorage.getItem("counter"))
+```
