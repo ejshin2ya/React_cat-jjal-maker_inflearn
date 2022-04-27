@@ -761,3 +761,90 @@ const jsonLocalStorage = {
           jsonLocalStorage.getItem("favorites") || []
         );
 ```
+
+## 25. 지금까지 배운 개념 정리1(JSX, 바벨, 컴포넌트, 스타일링, 이벤트)
+
+> JSX란?
+
+- JavaScript + XML
+- javaScript에 HTML 태그를 끼얹은 문법이다.
+- HTML 태그 안에선 중괄호({})를 사용해서 JS를 쓸 수 있다.
+
+```
+const count=1;
+const title = <h1>{count}번째 고양이</h1>
+```
+
+- 위 title 변수에 담은 h1 태그는 리액트 엘리먼트라고 부른다.
+
+> Babel 이란?
+
+- 최신 문법을 브라우저가 이해할 수 있는 JavaScript로 통역
+- 브라우저는 JSX를 이해하지 못한다.
+- Babel이라는 통역사로 JSX => JavaScript
+
+* jsx : `const title=<h1>안녕</h1>`
+* 브라우저 : 뭐라고?
+* Bavel : `const title=React.createElement('h1', null, '안녕')` 이래요.
+* 브라우저 : 아하!
+
+> 리액트 코드 브라우저에 그리기
+
+- 빈 HTML 공간에 React 때려박기
+- HTML
+  `<div id="app"></div>`
+
+- React
+
+```const target = document.querySelector("#app")
+  const myButton=<button>버튼</button>
+
+  ReactDOM.render(myButton, target)
+```
+
+> 컴포넌트
+
+- 여기저기 재사용 가능한 UI코드 조각
+- props는 properties의 약자로 속성들을 의미한다.
+
+```
+<Card emoji={dog} title="멍멍" />
+<Card emoji={cat} title="야옹" />
+
+function Card(props){
+  return(
+    <div>
+      {props.emoji}
+      <h2>{props.title}</h2>
+    </div>
+  )
+}
+```
+
+> 스타일링
+
+- 리액트에 CSS 끼얹기
+- CSS 클래스 : className
+- 인라인 스타일링 : style={{스타일속성 : 스타일값}}
+
+* 인라인 스타일링할때 두번쨰 속성값 스타일값은 "스트링"의 형태로 작성
+
+```
+<div className = "danger">위험</div>
+<div style={{color:"red"}}>위험</div>
+```
+
+> 이벤트
+
+- 사용자 이벤트(클릭, 스크롤 등) 다루기
+- 일반 자바스크립트 이벤트 목록과 동일하지만 중간을 대문자로 쓰면 된다.
+- onclick => onClick
+- onsubmit => onSubmit
+
+```
+function handleClick(event){
+  console.log("클릭했습니다")
+}
+
+<button onClick={handleClick}>제출</button>
+```
