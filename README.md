@@ -715,3 +715,49 @@ localStroage.setItem("counter", nextCounter);
 ```
  Number(localStorage.getItem("counter"))
 ```
+
+## 23. 로컬스토리지에 데이터 싱크하기2
+
+> JSON.stringify()
+
+- 웹 서버로 데이터를 보낼 때 데이터는 문자열이여야 하며, JSON.stringify()를 사용해서 javascript 객체를 문자열로 변환할 수 있다.
+
+> JSON.parse()
+
+- 웹 서버에 보내진 문자열 데이터를 가져올때, JSON.parse()를 사용해서 문자열을 javascript 객체로 변환할 수 있다.
+
+> localStorage에 데이터를 저장하고 꺼내오는 함수
+
+```
+const jsonLocalStorage = {
+        setItem: (key, value) => {
+          localStorage.setItem(key, JSON.stringify(value));
+        },
+        getItem: (key) => {
+          return JSON.parse(localStorage.getItem(key));
+        },
+      };
+```
+
+> 좋아요 버튼을 누르면, 해당 사진이 아래 화면에 추가되어 생성되게 하려면?
+
+1. 기존 컴포넌트의 역할을 살펴보면, MainCard 컴포넌트에 있는 좋아요를 눌렀을 때, favorites 컴포넌트에서 map 반복문을 돌면서 CatItem 컴포넌트를 이용해서 고양이 사진들을 화면에 그려준다.
+
+2. App 컴포넌트에 handleHeartClick() 이라는 함수가 있고, 이 함수를 MainCard 컴포넌트에 props로 전달해주고 있다.
+
+3. handleHeartClick()이라는 함수 안에 "favorites"키 값으로 현재 찜한 사진 상태값 favorites 배열과, 현재 메인 사진 상태값 mainCat을 배열로 담아서 JSON.stringify(localStorage.setItem("favorites", [...favorites, mainCat]))하여 데이터를 저장한다.
+
+```
+ function handleHeartClick() {
+          const nextFavorites = [...favorites, mainCat];
+          setFavorites(nextFavorites);
+          jsonLocalStorage.setItem("favorites", nextFavorites);
+        }
+```
+
+4. JSON.parse(localStrage.getItem("favorites"))해서 JSON 문자열로 저장된 찜한 사진을 자바스크립트 객체로 꺼내온다. 처음에 찜한사진이 아무것도 없을 때는 빈배열을 꺼내올 수 있도록 or연산을 사용하여 빈배열이 꺼내지도록 한다.
+
+```const [favorites, setFavorites] = React.useState(
+          jsonLocalStorage.getItem("favorites") || []
+        );
+```
