@@ -1039,3 +1039,54 @@ const fetchCat = async (text) => {
           setInitialCat();
         }, []);
 ```
+
+## 31. 조건부 렌더링(Conditional Rendering)
+
+> 찜한 사진이 없을때는 "사진 위 하트를 눌러 고양이 사진을 저장해봐요!"라는 문구가 보이도록 해보기
+
+- Favorites 컴포넌트에서 porps로 전달되는 favorites의 길이가 0일때, 조건에 맞는 문구를 보여주도록 한다.
+
+```
+ function Favorites({ favorites }) {
+        if (favorites.length == 0) {
+          return <div>사진 위 하트를 눌러 고양이 사진을 저장해봐요!</div>;
+        }
+        return (
+          <ul className="favorites">
+            {favorites.map((cat) => (
+              <CatItem img={cat} key={cat} />
+            ))}
+          </ul>
+        );
+      }
+```
+
+> favorites배열(찜버튼 누른 고양이 사진들의 배열) 안에 있는 고양이 사진이 MainCat에 보여질때 하트 버튼이 빨갛게 뜨도록 만들어 주기
+
+- 배열에 includes 사용하기
+- 배열안에 값이 있으면 true, 아니면 false를 반환해준다.
+  `[1,2,3].includes(1)`
+
+* App컴포넌트 안에 이미 좋아요 눌렀다는 새로운 변수 alreadyFavorite를 includes를 사용하여 만들어준다.
+* mainCat이미지가 favorites 배열안에 포함되어 있다면 true, 아니면 false 반환
+
+```
+const alreadyFavorite = favorites.includes(mainCat);
+```
+
+- 삼항 연산자 사용하기
+- MainCard 컴포넌트로 아까 만든 alreadyFavorite변수를 props로 넘겨준다.
+- heartIcon이라는 새로운 변수를 삼항 연산자로 만들어준다.
+- alreadyFavorite가 true값이면 빨간 하트를, false라면 하얀 하트를 보여준다.
+
+```
+ const MainCard = ({ img, onHeartClick, alreadyFavorite }) => {
+        const heartIcon = alreadyFavorite ? "💖" : "🤍";
+        return (
+          <div className="main-card">
+            <img src={img} alt="고양이" width="400" />
+            <button onClick={onHeartClick}>{heartIcon}</button>
+          </div>
+        );
+      };
+```
