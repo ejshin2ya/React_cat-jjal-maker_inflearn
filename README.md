@@ -1234,3 +1234,31 @@ npx create-react-app cat-jjal-maker-cra
 cd cat-jjal-maker-cra
 npm start
 ```
+
+## 35. create-react-app 폴더 구조 뜯어보기 2
+
+> cat-jjal-maker-cra -> src -> README.md
+
+- cra로 만들어진 프로젝트에 대한 설명이 들어있음.
+- build, start 등등
+
+> cat-jjal-maker-cra -> src -> package.json
+
+- cra가 어떤 라이브러리를 사용하고 있는지, 어떤 명령어를 통해 무엇을 할 수 있는지에 대해 나와있는 파일.
+
+> ..App.js
+
+- npm start 했을때 처음 화면 띄워지는 곳
+- import, export로 외부로 파일 들여오고 외부로 파일 내보낸다.
+  > ..index.js
+- documnet.getElementById('root')라는 곳에 나의 app 컴포넌트를 그려준다는 내용이 담겨있다.
+- root는 public의 index.html에 들어있다.
+
+> npm 소개
+> https://joshua1988.github.io/webpack-guide/build/node-npm.html
+
+> npm과 node.js 소개 무료 강의
+> https://www.inflearn.com/course/%ED%94%84%EB%9F%B0%ED%8A%B8%EC%97%94%EB%93%9C-%EC%9B%B9%ED%8C%A9/lecture/37370?inst=747606f7&tab=curriculum&volume=1.00
+
+> ES+ import 문법
+> https://joshua1988.github.io/vue-camp/es6+/modules.html#%E1%84%86%E1%85%A9%E1%84%83%E1%85%B2%E1%86%AF%E1%84%92%E1%85%AA%E1%84%8B%E1%85%B4-%E1%84%91%E1%85%B5%E1%86%AF%E1%84%8B%E1%85%AD%E1%84%89%E1%85%A5%E1%86%BC
