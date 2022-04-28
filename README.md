@@ -1090,3 +1090,50 @@ const alreadyFavorite = favorites.includes(mainCat);
         );
       };
 ```
+
+## 31. 퀴즈 풀이
+
+> counter가 null이면 "n번째"를 삭제하고 "고양이 가라사대"만 보여주기
+
+- 내가 만든 코드는 title을 두번쓰고 있어서 별로 좋지 않은 것 같다.
+
+```
+const counterTitle =
+          counter === null ? (
+            <Title>고양이 가라사대</Title>
+          ) : (
+            <Title>{counter}번째 고양이 가라사대</Title>
+          );
+
+        return (
+          <div>
+            {counterTitle}
+            <Form updateMainCat={updateMainCat} />
+            <MainCard
+              img={mainCat}
+              onHeartClick={handleHeartClick}
+              alreadyFavorite={alreadyFavorite}
+            />
+            <Favorites favorites={favorites} />
+          </div>
+        );
+```
+
+- 유림님이 만든 코드는 n번째만 바꿔주어서 가독성이 좋다.
+
+```
+        const counterTitle = counter === null ? "" : counter + "번째 ";
+
+        return (
+          <div>
+            <Title>{counterTitle}고양이 가라사대</Title>
+            <Form updateMainCat={updateMainCat} />
+            <MainCard
+              img={mainCat}
+              onHeartClick={handleHeartClick}
+              alreadyFavorite={alreadyFavorite}
+            />
+            <Favorites favorites={favorites} />
+          </div>
+        );
+```
