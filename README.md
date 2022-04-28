@@ -1195,3 +1195,42 @@ const counterTitle =
           });
         }
 ```
+
+## 34. create-react-app 실무 개발환경 만들기
+
+> 실제 유저들에게 공개하기 전에 무엇을 더 해야할까요?
+
+1. 프로덕션 버전 리액트 라이브러리 사용 = 개발용 경고 등이 불포함되어 용량 작다.
+2. 바벨 떼기 = 브라우저에서 매번 바벨로 JS로 통역하는게 아니고 이미 통역된 JS를 올린다.
+
+> 위 문제 해결을 위해 create-reat-app사용
+
+- 리액트 초기 개발에 필요한 모든 것을 자동으로 해줘요
+
+1. 간단한 앱 껍데기
+2. 리액트 라이브러리 셋업(개발용/ 프로덕션용)
+3. 웹팩(WepPack) 셋업
+   - 라이브 서버
+   - 저장할때마다 JSX -> JS
+   - 웹팩 소개 문서 : https://joshua1988.github.io/webpack-guide/webpack/what-is-webpack.html
+   - 웹팩 강의 : https://www.inflearn.com/course/%ED%94%84%EB%9F%B0%ED%8A%B8%EC%97%94%EB%93%9C-%EC%9B%B9%ED%8C%A9?inst=747606f7&utm_source=blog&utm_medium=githubio&utm_campaign=captianpangyo&utm_term=banner
+4. 테스트 셋업
+5. 빌드 셋업
+   - JS로 변환, 코드 용량 최소화, 프로덕션 라이브러리 설정 등
+
+- 사용방법 공식 문서 : https://ko.reactjs.org/docs/create-a-new-react-app.html
+- node.js 설치 되어있어야 한다. (확인방법 : 터미널에 node -v )
+
+```
+npx create-react-app my-app
+cd my-app
+npm start
+```
+
+- my-app 부분은 직접 원하는 파일명으로 적어준다.
+
+```
+npx create-react-app cat-jjal-maker-cra
+cd cat-jjal-maker-cra
+npm start
+```
