@@ -943,3 +943,42 @@ fetch('https://cataas.com/cat?json=true')
 - promise 이해하기 : https://joshua1988.github.io/web-development/javascript/promise-for-beginners/
 
 - 비동기 이해하기 : https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
+
+## 28. 고양이 데이터 내 앱에 연동하기
+
+> async await 문법
+
+- await 상위에는 async를 꼭 사용해야한다.
+- async, await 문법 글 : https://joshua1988.github.io/web-development/javascript/js-async-await/
+- async, await 무료 강의 : https://www.inflearn.com/course/vue-js/lecture/17061?tab=curriculum&volume=1.00
+
+> mainCat의 사진이 api에 연동되어 고양이 랜덤 사진 안에 내가 입려간 단어가 그려지게 하기
+
+- async, await, fetch를 사용해서 api에 있는 url주소를 가져와서 내가 원하는 text값과 조합하여 최종으로 원하는 url로 만들어준다.
+
+```
+const fetchCat = async (text) => {
+  const OPEN_API_DOMAIN = "https://cataas.com";
+  const response = await fetch(`${OPEN_API_DOMAIN}/cat/says/${text}?json=true`);
+  const responseJson = await response.json();
+  return `${OPEN_API_DOMAIN}/${responseJson.url}`;
+};
+```
+
+- updateMainCat 함수에서 고양이 메인 사진을 관리해줌. 여기에 새로운 newCat이라는 변수를 만들어서 위에서 만든 fetch함수에 내가 원하는 text를 연결해준다.
+  ` const newCat = await fetchCat(value);`
+
+- From 컴포넌트에서 updateMainCat함수와 input value값을 둘다 사용하고 있기 때문에, updateMainCat(value) 함수에 사용자가 입력한 input value를 파라미터로 넘겨준다.
+
+- value값을 받은 updateMainCat(value)함수에서 value가 fetchcat함수에 전달되어 원하는 url주소값을 얻을 수 있다. setMainCat(newCat)으로 상태값이 변경된 고양이 이미지가 MainCard컴포넌트에 전달되어 보여진다.
+
+```
+  async function updateMainCat(value) {
+          const newCat = await fetchCat(value);
+
+          setMainCat(newCat);
+          const nextCounter = counter + 1;
+          setCounter(nextCounter);
+          jsonLocalStorage.setItem("counter", nextCounter);
+        }
+```
