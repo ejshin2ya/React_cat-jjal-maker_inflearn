@@ -1273,3 +1273,26 @@ npm start
 - title 컴포넌트 코드를 잘라내서 src 아래에 components 폴더를 만들고 Title.js 파일을 생성해서 여기에 붙여넣는다.
 - App.js에서 쓸수있도록`export default Title;`해준다.
 - App.js에서는 `import Title from "./components/Title";`해준다.
+
+## 37. 빌드한 결과물 github pages로 배포하기
+
+> cra에 있는 것은 브라우저로 바로 읽을 수 없어서 build과정이 필요
+
+```cd cat-jjal-maker-cra
+  npm run build
+```
+
+- 위명령어 실행 후 build 폴더 생성
+- jsx가 아닌 브라우저가 이해할 수 있는 자바스크립트 파일이 생성
+- 깃헙 페이지스에 jsx가 아닌 빌드 폴더를 올려야 한다.
+- 깃헙 페이지스 라이브러리를 다운받아야 한다.
+  ` npm install gh-pages`
+- 깃헙 페이지스를 통해 빌드 폴더를 깃허브에 올리기 위한 명령어 추가.
+- package.json -> script에 `"deploy": "gh-pages -d build"` 명령어를 삽입
+- package.json -> 상단에 `"homepage": "https://ejshin2ya.github.io/React_cat-jjal-maker_inflearn"` 깃허브 페이지 주소를 작성(마지막에 /는 삭제)
+
+* 다시 한번 빌드 `npm run build`
+* `npm run deploy`
+
+* 깃헙 페이지가 기존에 main을 바라보고 있는것을 깃헙 페이지스를 바라보도록 변경
+* github -> settings -> pages -> branch를 gh-pages로 변경 후 save
