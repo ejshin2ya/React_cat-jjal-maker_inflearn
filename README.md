@@ -1262,3 +1262,14 @@ npm start
 
 > ES+ import 문법
 > https://joshua1988.github.io/vue-camp/es6+/modules.html#%E1%84%86%E1%85%A9%E1%84%83%E1%85%B2%E1%86%AF%E1%84%92%E1%85%AA%E1%84%8B%E1%85%B4-%E1%84%91%E1%85%B5%E1%86%AF%E1%84%8B%E1%85%AD%E1%84%89%E1%85%A5%E1%86%BC
+
+## 36. 지금까지 만든 앱 create-react-app으로 옮기기
+
+> 기존에 만든 프로젝트를 babel script 다음부터 render 전까지의 코드를 cat-jjal-maker-cra -> src -> App.js 폴더의 App 코드 부분을 지우고 복사한 코드를 붙여넣는다.
+
+> 원래는 컴포넌트마다 파일을 각각 생성해주는 것이 관례이다.
+> 우리는 모든 컴포넌트를 App.js에 때려박았지만, Title 컴포넌트를 분리해보는 연습 해보자
+
+- title 컴포넌트 코드를 잘라내서 src 아래에 components 폴더를 만들고 Title.js 파일을 생성해서 여기에 붙여넣는다.
+- App.js에서 쓸수있도록`export default Title;`해준다.
+- App.js에서는 `import Title from "./components/Title";`해준다.
