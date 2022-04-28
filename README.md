@@ -1018,3 +1018,24 @@ const fetchCat = async (text) => {
 ```
 
 - 고양이 사진 CAT1이 잠깐 떳다가 새로운 사진으로 한번 생성되는 것을 확인할 수 있다.
+
+## 30. useEffect의 정체
+
+- React 컴포넌트 안에 있는 코드는 기본적으로 UI가 새로 업데이트 될때마다 계속 불린다.
+- 계속 불리는 것을 방지하고 어떤 상태가 업데이트 될때만 불리도록 제한하기 위해서는 useEffect의 두번쨰 인자로 배열을 넘기고, 배열안에 원하는 상태를 넘겨주면 된다.
+
+* 아래 코드는 counter라는 숫자가 변경될 때마다 setInitialCat()함수가 불린다.
+
+```
+        React.useEffect(() => {
+          setInitialCat();
+        }, [counter]);
+```
+
+- 상태 변화에 상관없이 맨처음 앱이 생성되었을 때만 호출하고 싶을 때는 빈배열을 넣어주면 된다.
+
+```
+        React.useEffect(() => {
+          setInitialCat();
+        }, []);
+```
