@@ -910,3 +910,36 @@ function onValueChange(e){
 localStorage.setItem("이름", "유림");
 localStorage.getItem("이름") //유림
 ```
+
+## 27. 실제 고양이 데이터 받아오기 - fetch, Open API
+
+> 서버 개발자가 있다면 API를 만들어서 이 주소로 호출을 하면 이미지 url을 보내주겠다고 하겠지만 현재 서버 개발자가 없기 때문에 오픈 API를 활용
+
+- https://github.com/public-apis/public-apis => 다양한 오픈API있음
+- Animal -> cataas 를 고양이 짤방 만드는 API로 사용
+
+* 고양이 API는 서버로 요청하는 API를 의미한다.
+* fetch API는 자바스크립트로 호출할 수 있는 API를 의미한다.
+
+> fetch 사용하기
+
+- https://developer.mozilla.org/ko/docs/Web/API/Fetch_API/Using_Fetch
+- 위 사이트에서 fetch사용하기 코드를 가져와서 url을 바꿔주면 고양이 이미지 주소를 Json 형태로 가져올 수 있다.
+
+```
+fetch('https://cataas.com/cat?json=true')
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+```
+
+- 위 코드를 콘솔창에 입력하면 아래와 같이 url결과 주소를 얻을 수 있다.
+
+```
+{id: '60da12c802e5cf001caa36cc', created_at: '2021-06-28T18:19:51.958Z', tags: Array(1), url: '/cat/60da12c802e5cf001caa36cc'}
+```
+
+> fetch를 깊게 공부하려면 primise와 비동기 처리에 대해 알면 좋다.
+
+- promise 이해하기 : https://joshua1988.github.io/web-development/javascript/promise-for-beginners/
+
+- 비동기 이해하기 : https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
