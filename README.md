@@ -1137,3 +1137,61 @@ const counterTitle =
           </div>
         );
 ```
+
+## 33. setState 더 알아보기 - 함수, 지연초기화
+
+1. useState()에 함수 생성하여 초기값 한번만 나오도록 해줌
+
+> app 컴포넌트 안에 있는 함수들은 UI가 초기화될 때마다 새로 실행되기 때문에, jsonLocalStorage에 접근하는 부분이 계속 실행되면서 무거워진다.
+
+> 이를 해결하기 위해 jsonLocalStorage가 처음 접속했을 때 한번만 실행되기 위해 useState의 초기값을 값이 아닌 함수로 전달해준다.
+
+- 기존에 값으로 전달해서 문제있는 코드
+
+```
+    const [counter, setCounter] = React.useState(
+          jsonLocalStorage.getItem("counter")
+        );
+```
+
+- 화살표 함수로 전달해서 문제 해결한 코드
+
+```
+        const [counter, setCounter] = React.useState(() => {
+          return jsonLocalStorage.getItem("counter");
+        });
+```
+
+2. setState()에 값이 아닌 함수를 만들어서 미스매치 현상을 제거
+
+> 생성 버튼을 여러번 눌러도 counter 값이 빠르게 올라가지 않는 현상은 useState의 액션을 처리할때, coutner와 setCounter가 바라보는 위치가 달라서 생기는 미스매치 현상이다.
+
+> 이를 해결하기 위해서 useState의 setCounter를 함수로 넘겨준다.
+
+- 문제가 있었던 이전 코드
+
+```
+          const newCat = await fetchCat(value);
+
+          setMainCat(newCat);
+          const nextCounter = counter + 1;
+          setCounter(nextCounter);
+          jsonLocalStorage.setItem("counter", nextCounter);
+        }
+```
+
+- 화살표 함수로 전달해서 문제를 해결해준 코드
+- prev를 통해서 이전 값을 받아와서 setCounter를 함수로 처리해준다.
+
+```
+        async function updateMainCat(value) {
+          const newCat = await fetchCat(value);
+
+          setMainCat(newCat);
+          setCounter((prev) => {
+            const nextCounter = prev + 1;
+            jsonLocalStorage.setItem("counter", nextCounter);
+            return nextCounter;
+          });
+        }
+```
