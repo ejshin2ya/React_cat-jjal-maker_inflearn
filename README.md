@@ -952,6 +952,16 @@ fetch('https://cataas.com/cat?json=true')
 - async, await 문법 글 : https://joshua1988.github.io/web-development/javascript/js-async-await/
 - async, await 무료 강의 : https://www.inflearn.com/course/vue-js/lecture/17061?tab=curriculum&volume=1.00
 
+* 어싱크 어웨이트 자바스크립트 비동기 처리 패턴의 최신 문법이다.
+* primise와 Callback에서 주는 단점들을 해결하고 자바스크립트의 비동기적 사고 방식에서 벗어나 동기적으로 코드를 작성할 수 있게 도와준다.
+* 기본 문법
+
+```
+async function fetchData(){
+  await getUserList();
+}
+```
+
 > mainCat의 사진이 api에 연동되어 고양이 랜덤 사진 안에 내가 입려간 단어가 그려지게 하기
 
 - async, await, fetch를 사용해서 api에 있는 url주소를 가져와서 내가 원하는 text값과 조합하여 최종으로 원하는 url로 만들어준다.
@@ -982,3 +992,29 @@ const fetchCat = async (text) => {
           jsonLocalStorage.setItem("counter", nextCounter);
         }
 ```
+
+## 29. 컴포넌트 생성시 고양이 데이터 받아오기 useEffect
+
+> 메인화면에 있는 첫 고양이 사진이 지정 변수로 설정되어있는데 앱 진입시 바로 api콜을 해서 고양이 메인 사진을 동적으로 바꿔주는 작업해보기
+
+- 첫 고양이 사진을 만들어주는 setInitialCat() 함수를 생성한다.
+- await와 fetch를 사용하기 때문에 async 함수로 감싸줘야 한다.
+
+```
+          async function setInitialCat() {
+          const newCat = await fetchCat("First Cat");
+          setMainCat(newCat);
+        }
+```
+
+- app 컴포넌트에서 setInitiaCat() 함수를 실행시키면 고양이 사진이 한개만 나오는게 아니고 계속해서 이미지 주소가 생성된다.
+
+- 위의 상황을 방지하기 위해 useEffect()를 사용해 준다.
+
+```
+        React.useEffect(() => {
+          setInitialCat();
+        }, []);
+```
+
+- 고양이 사진 CAT1이 잠깐 떳다가 새로운 사진으로 한번 생성되는 것을 확인할 수 있다.
